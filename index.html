@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aayush Agarwal — Senior Design Analyst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700;1,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F4F4F0;
+      --bg-card: #EEEAE4;
+      --bg-elevated: #E2DDD8;
+      --accent: #FF5C2E;
+      --accent-dim: rgba(255,92,46,0.10);
+      --text-1: #0A0A14;
+      --text-2: #4A4A5A;
+      --text-3: #9A9AAA;
+      --border: rgba(0,0,0,0.08);
+      --border-strong: rgba(0,0,0,0.15);
+      --font-display: 'Fraunces', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --nav-h: 72px;
+      --max-w: 1100px;
+      --pad: clamp(20px, 5vw, 80px);
+      --r-sm: 8px;
+      --r-md: 14px;
+      --r-lg: 20px;
+      --r-xl: 28px;
+      --shadow-card: 0 8px 32px rgba(0,0,0,0.10);
+      --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-theme="dark"] {
+      --bg: #08080F;
+      --bg-card: #0F0F1C;
+      --bg-elevated: #141422;
+      --text-1: #EFEFFF;
+      --text-2: #8A8AA8;
+      --text-3: #50506A;
+      --border: rgba(255,255,255,0.06);
+      --border-strong: rgba(255,255,255,0.12);
+      --shadow-card: 0 8px 32px rgba(0,0,0,0.45);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-1);
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--pad);
+      background: rgba(244,244,240,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      transition: background 0.3s;
+    }
+    [data-theme="dark"] nav { background: rgba(8,8,15,0.92); }
+    .nav-logo {
+      font-family: var(--font-display); font-weight: 900; font-size: 1.5rem;
+      color: var(--text-1); text-decoration: none; letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-2);
+      font-size: 0.9rem; font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-1); }
+    .nav-links a.active { border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .btn-theme {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid var(--border-strong); background: transparent;
+      cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-2); transition: all 0.2s;
+    }
+    .btn-theme:hover { background: var(--bg-card); }
+    .btn-outline {
+      padding: 0.5rem 1.2rem; border-radius: 100px;
+      border: 1.5px solid var(--border-strong); background: transparent;
+      color: var(--text-1); font-family: var(--font-body);
+      font-size: 0.875rem; font-weight: 500;
+      cursor: pointer; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--bg-card); }
+    .btn-primary {
+      padding: 0.5rem 1.2rem; border-radius: 100px; border: none;
+      background: var(--accent); color: #fff;
+      font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-primary:hover { background: #e04820; transform: translateY(-1px); }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem var(--pad); }
+    .container { max-width: var(--max-w); margin: 0 auto; }
+
+    /* ── HERO ── */
+    #home {
+      padding-top: calc(var(--nav-h) + 4rem);
+      padding-bottom: 5rem;
+      min-height: 100svh;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--bg) 55%, rgba(255,92,46,0.07) 100%);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media(max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-right { order: -1; }
+    }
+    .hero-tag {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+      color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .hero-tag::before { content: ''; display: block; width: 36px; height: 1.5px; background: var(--accent); }
+    h1.hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      font-weight: 900; line-height: 1.05; letter-spacing: -0.03em;
+      color: var(--text-1); margin-bottom: 0.2rem;
+    }
+    h1.hero-title .accent { color: var(--accent); font-style: italic; }
+    .hero-desc {
+      max-width: 520px; color: var(--text-2);
+      font-size: 1.05rem; line-height: 1.7; margin: 1.5rem 0 2.5rem;
+    }
+    .hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    /* ── HERO AVATAR RIGHT ── */
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-avatar-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+    }
+    .hero-avatar {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 2rem;
+      display: block;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+    }
+    .open-chip {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10,10,10,0.88);
+      color: #fff;
+      border-radius: 100px;
+      padding: 0.55rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    [data-theme="light"] .open-chip {
+      background: rgba(255,255,255,0.92);
+      color: #111;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .open-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+      animation: pulse-green 2s ease-in-out infinite;
+    }
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+      50% { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+    }
+    .btn-hero-primary {
+      padding: 0.85rem 1.8rem; border-radius: 100px; border: none;
+      background: var(--accent); color: #fff; font-family: var(--font-body);
+      font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .btn-hero-primary:hover { background: #e04820; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,92,46,0.3); }
+    .btn-hero-secondary {
+      padding: 0.85rem 1.8rem; border-radius: 100px;
+      border: 1.5px solid var(--border-strong); background: transparent;
+      color: var(--text-1); font-family: var(--font-body);
+      font-size: 0.95rem; font-weight: 500; cursor: pointer;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .btn-hero-secondary:hover { background: var(--bg-card); }
+
+    /* ── TICKER ── */
+    .ticker-section {
+      padding: 2.5rem 0; overflow: hidden;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .ticker-track {
+      display: flex; gap: 3rem;
+      animation: ticker 28s linear infinite; width: max-content;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-3); white-space: nowrap;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .ticker-item::after { content: '·'; color: var(--accent); font-size: 1.2rem; }
+
+    /* ── STATS ── */
+    #stats { padding: 5rem var(--pad); }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+    .stat-value {
+      font-family: var(--font-display); font-size: 2.8rem;
+      font-weight: 900; color: var(--text-1); line-height: 1; margin-bottom: 0.5rem;
+    }
+    .stat-value .accent { color: var(--accent); }
+    .stat-label { font-size: 0.82rem; color: var(--text-2); line-height: 1.5; }
+
+    /* ── WORK ── */
+    #work { padding: 6rem var(--pad); }
+    .section-eyebrow {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900; letter-spacing: -0.02em;
+      color: var(--text-1); line-height: 1.1;
+    }
+    .section-title .italic { font-style: italic; }
+    .work-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem; gap: 1rem; flex-wrap: wrap;
+    }
+    .projects-list { display: flex; flex-direction: column; gap: 2rem; }
+
+    /* ── PROJECT CARD (with hero image) ── */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s var(--ease-expo);
+      display: block;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); border-color: rgba(255,92,46,0.3); }
+
+    /* Hero image area */
+    .project-hero {
+      width: 100%; height: 260px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .project-hero svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .project-hero .hero-label {
+      position: relative; z-index: 2;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900; font-style: italic;
+      color: #fff; text-align: center;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      line-height: 1.2; padding: 1rem;
+    }
+    .project-hero .hero-badge {
+      position: absolute; top: 1rem; left: 1rem; z-index: 3;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 100px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #fff;
+    }
+    .project-hero .hero-num {
+      position: absolute; bottom: 1rem; right: 1rem; z-index: 3;
+      font-family: var(--font-display);
+      font-size: 5rem; font-weight: 900; font-style: italic;
+      color: rgba(255,255,255,0.12);
+      line-height: 1;
+      user-select: none;
+    }
+    /* hover zoom on hero */
+    .project-card:hover .project-hero svg { transform: scale(1.04); transition: transform 0.5s var(--ease-expo); }
+
+    /* Card body */
+    .project-body {
+      padding: 1.75rem 2rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: center;
+    }
+    .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .tag {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--text-2);
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: 100px; padding: 0.25rem 0.7rem;
+    }
+    .project-num { font-size: 0.72rem; color: var(--text-3); font-weight: 500; margin-bottom: 0.3rem; }
+    .project-title {
+      font-family: var(--font-display); font-size: 1.4rem;
+      font-weight: 700; letter-spacing: -0.02em;
+      color: var(--text-1); margin-bottom: 0.45rem;
+    }
+    .project-desc { font-size: 0.9rem; color: var(--text-2); line-height: 1.6; max-width: 600px; }
+    .project-meta {
+      font-size: 0.78rem; color: var(--text-3);
+      margin-top: 0.75rem; display: flex; gap: 1rem; align-items: center;
+    }
+    .project-meta .pill {
+      background: rgba(255,92,46,0.08); color: var(--accent);
+      border-radius: 100px; padding: 0.2rem 0.7rem;
+      font-size: 0.7rem; font-weight: 600;
+    }
+    .project-arrow {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1.5px solid var(--border-strong);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-2); font-size: 1.1rem;
+      transition: all 0.25s; flex-shrink: 0; align-self: flex-end;
+    }
+    .project-card:hover .project-arrow {
+      background: var(--accent); border-color: var(--accent);
+      color: #fff; transform: rotate(-45deg);
+    }
+
+    /* ── ABOUT ── */
+    #about { padding: 6rem var(--pad); background: var(--bg-card); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    @media(max-width:768px){ .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+    .about-desc { font-size: 1.05rem; color: var(--text-2); line-height: 1.8; margin-top: 1.5rem; }
+    .about-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .about-pill {
+      font-size: 0.8rem; font-weight: 500; color: var(--text-1);
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: 100px; padding: 0.4rem 1rem;
+    }
+    .values-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .value-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .value-icon {
+      width: 40px; height: 40px; border-radius: var(--r-sm);
+      background: rgba(255,92,46,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem;
+    }
+    .value-title { font-weight: 600; font-size: 0.95rem; color: var(--text-1); margin-bottom: 0.25rem; }
+    .value-desc { font-size: 0.85rem; color: var(--text-2); line-height: 1.6; }
+
+    /* ── CURRENTLY ── */
+    #currently { padding: 5rem var(--pad); }
+    .currently-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+    @media(max-width:768px){ .currently-grid { grid-template-columns: 1fr; } }
+    .currently-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 1.75rem; }
+    .currently-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .currently-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text-1); margin-bottom: 0.3rem; }
+    .currently-sub { font-size: 0.85rem; color: var(--text-2); }
+    .exploring-list { list-style: none; margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .exploring-list li { font-size: 0.88rem; color: var(--text-2); display: flex; align-items: center; gap: 0.5rem; }
+    .exploring-list li::before { content: '→'; color: var(--accent); font-size: 0.75rem; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { padding: 6rem var(--pad); background: var(--bg-card); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .testimonial-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--r-xl); padding: 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .testimonial-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+    .quote-mark { font-family: var(--font-display); font-size: 4rem; line-height: 1; color: var(--accent); margin-bottom: 0.5rem; font-style: italic; }
+    .testimonial-text { font-size: 0.95rem; color: var(--text-2); line-height: 1.7; font-style: italic; margin-bottom: 1.5rem; }
+    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+    .author-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #ff8c6a);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: #fff; font-size: 0.9rem; flex-shrink: 0;
+    }
+    .author-name { font-weight: 600; font-size: 0.9rem; color: var(--text-1); }
+    .author-role { font-size: 0.78rem; color: var(--text-3); }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 6rem var(--pad); text-align: center;
+      background: linear-gradient(135deg, var(--bg) 0%, rgba(255,92,46,0.06) 100%);
+    }
+    .contact-title {
+      font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900; letter-spacing: -0.03em;
+      color: var(--text-1); line-height: 1.1; margin-bottom: 1rem;
+    }
+    .contact-desc { max-width: 500px; margin: 0 auto 2.5rem; color: var(--text-2); font-size: 1rem; line-height: 1.7; }
+    .contact-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem var(--pad); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-logo { font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; color: var(--text-1); text-decoration: none; }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-3); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text-1); }
+
+    @media(max-width:768px) { .nav-links { display: none; } }
+
+    /* ── SPLIT CARD (text left, screen right) ── */
+    .project-card--split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 320px;
+    }
+    .project-card--split .split-left {
+      padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--border);
+    }
+    .project-card--split .split-right {
+      position: relative;
+      overflow: hidden;
+      background: #12122a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+    }
+    .project-card--split .split-right svg {
+      width: 100%; height: 100%;
+      position: absolute; inset: 0;
+      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .project-card--split:hover .split-right svg { transform: scale(1.04); }
+    .split-screen-label {
+      position: absolute; bottom: 1rem; left: 1rem; z-index: 3;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+    }
+    .split-left .project-arrow { align-self: flex-start; margin-top: 1.5rem; }
+    @media(max-width:860px) {
+      .project-card--split { grid-template-columns: 1fr; }
+      .project-card--split .split-right { min-height: 240px; }
+      .project-card--split .split-left { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#home" class="nav-logo">AA<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="btn-theme" id="themeToggle" title="Toggle theme">☀️</button>
+      <a href="https://www.behance.net/aayushagarwal4" target="_blank" class="btn-outline">View Behance ↗</a>
+      <a href="#contact" class="btn-primary">Let's Talk →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="container hero-grid">
+      <!-- LEFT: text content -->
+      <div class="hero-left">
+        <div class="hero-tag">Senior Design Analyst · New Delhi</div>
+        <h1 class="hero-title">
+          Designing digital<br/>
+          experiences that <span class="accent">matter.</span>
+        </h1>
+        <p class="hero-desc">
+          UX/UI designer at Accenture with a passion for solving complex problems through clean, user-centred design — from healthcare to fintech, logistics to fashion.
+        </p>
+        <div class="hero-ctas">
+          <a href="#work" class="btn-hero-primary">View My Work →</a>
+          <a href="#about" class="btn-hero-secondary">About Me</a>
+        </div>
+      </div>
+      <!-- RIGHT: avatar image -->
+      <div class="hero-right">
+        <div class="hero-avatar-wrap">
+          <img src="avatar.jpg" alt="Aayush Agarwal" class="hero-avatar" />
+          <div class="open-chip">
+            <span class="open-dot"></span>
+            Open for work
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-section">
+    <div class="ticker-track">
+      <span class="ticker-item">UX Research</span>
+      <span class="ticker-item">UI Design</span>
+      <span class="ticker-item">Figma</span>
+      <span class="ticker-item">Design Systems</span>
+      <span class="ticker-item">Prototyping</span>
+      <span class="ticker-item">User Testing</span>
+      <span class="ticker-item">Interaction Design</span>
+      <span class="ticker-item">Visual Design</span>
+      <span class="ticker-item">Healthcare UX</span>
+      <span class="ticker-item">FinTech Design</span>
+      <span class="ticker-item">Mobile Design</span>
+      <span class="ticker-item">Web Design</span>
+      <span class="ticker-item">UX Research</span>
+      <span class="ticker-item">UI Design</span>
+      <span class="ticker-item">Figma</span>
+      <span class="ticker-item">Design Systems</span>
+      <span class="ticker-item">Prototyping</span>
+      <span class="ticker-item">User Testing</span>
+      <span class="ticker-item">Interaction Design</span>
+      <span class="ticker-item">Visual Design</span>
+      <span class="ticker-item">Healthcare UX</span>
+      <span class="ticker-item">FinTech Design</span>
+      <span class="ticker-item">Mobile Design</span>
+      <span class="ticker-item">Web Design</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">10<span class="accent">+</span></div>
+          <div class="stat-label">Design projects shipped across healthcare, fintech &amp; logistics</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">5<span class="accent">+</span></div>
+          <div class="stat-label">Years of product design experience across industries</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">B2B<span class="accent">/</span>B2C</div>
+          <div class="stat-label">Enterprise &amp; consumer design — from call centres to fashion apps</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value"><span class="accent">∞</span></div>
+          <div class="stat-label">Curiosity for new domains, tools &amp; design challenges</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="container">
+      <div class="work-header">
+        <div>
+          <div class="section-eyebrow">Selected Work</div>
+          <h2 class="section-title">Projects that<br/><span class="italic">tell a story.</span></h2>
+        </div>
+        <a href="https://www.behance.net/aayushagarwal4" target="_blank" class="btn-outline">View all work ↗</a>
+      </div>
+
+      <div class="projects-list">
+
+        <!-- ─── PROJECT 1: Portfolio Research Work ─── -->
+        <a href="https://www.behance.net/gallery/172858383/Portfolio-Research-Work" target="_blank" class="project-card project-card--split">
+
+          <!-- LEFT: text info -->
+          <div class="split-left">
+            <div>
+              <div class="project-tags">
+                <span class="tag">UX Research</span>
+                <span class="tag">Portfolio</span>
+              </div>
+              <div class="project-num" style="margin-top:0.6rem">01 / Senior Design Analyst</div>
+              <div class="project-title">Portfolio Research Work</div>
+              <p class="project-desc">An in-depth UX research study exploring user behaviour, design patterns, and insights to inform modern portfolio design decisions. Covers competitive analysis, user interviews, affinity mapping, and persona development.</p>
+              <div class="project-meta" style="margin-top:1rem">
+                <span class="pill">Research</span>
+                <span>UX Research · Strategy</span>
+              </div>
+            </div>
+            <div class="project-arrow" style="margin-top:2rem">↗</div>
+          </div>
+
+          <!-- RIGHT: main screen mockup -->
+          <div class="split-right">
+            <!-- real Behance project image -->
+            <img referrerpolicy="no-referrer" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/091dbb172858383.6486e4f070038.png"
+              alt="Portfolio Research Work — Dashboard Screen"
+              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.18) 0%,transparent 40%);pointer-events:none;"></div>
+            <svg viewBox="0 0 560 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="display:none">
+              <defs>
+                <linearGradient id="pr-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#12122a"/>
+                  <stop offset="100%" stop-color="#1c1c3a"/>
+                </linearGradient>
+                <linearGradient id="pr-card" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.08)"/>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0.03)"/>
+                </linearGradient>
+                <linearGradient id="pr-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#FF5C2E"/>
+                  <stop offset="100%" stop-color="#FF8C5A"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Background -->
+              <rect width="560" height="360" fill="url(#pr-bg)"/>
+
+              <!-- Subtle grid -->
+              <line x1="0" y1="90" x2="560" y2="90" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              <line x1="0" y1="180" x2="560" y2="180" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              <line x1="0" y1="270" x2="560" y2="270" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              <line x1="140" y1="0" x2="140" y2="360" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              <line x1="280" y1="0" x2="280" y2="360" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              <line x1="420" y1="0" x2="420" y2="360" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+
+              <!-- ── MAIN SCREEN: Research Dashboard ── -->
+              <!-- Outer browser / app window -->
+              <rect x="30" y="24" width="500" height="312" rx="14" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+              <!-- Title bar -->
+              <rect x="30" y="24" width="500" height="36" rx="14" fill="rgba(255,255,255,0.07)"/>
+              <rect x="30" y="46" width="500" height="14" fill="rgba(255,255,255,0.07)"/>
+              <circle cx="52" cy="42" r="5" fill="rgba(255,100,100,0.55)"/>
+              <circle cx="68" cy="42" r="5" fill="rgba(255,200,80,0.55)"/>
+              <circle cx="84" cy="42" r="5" fill="rgba(80,210,80,0.55)"/>
+              <rect x="108" y="34" width="220" height="16" rx="8" fill="rgba(255,255,255,0.07)"/>
+              <rect x="116" y="38" width="100" height="8" rx="4" fill="rgba(255,255,255,0.2)"/>
+              <!-- Page title bar -->
+              <rect x="30" y="60" width="500" height="32" fill="rgba(255,92,46,0.08)"/>
+              <rect x="46" y="70" width="120" height="10" rx="5" fill="rgba(255,92,46,0.7)"/>
+              <rect x="420" y="67" width="90" height="18" rx="9" fill="url(#pr-accent)"/>
+              <rect x="430" y="71" width="70" height="10" rx="5" fill="rgba(255,255,255,0.9)"/>
+
+              <!-- LEFT SIDEBAR -->
+              <rect x="30" y="92" width="118" height="244" fill="rgba(0,0,0,0.15)"/>
+              <!-- Nav items -->
+              <rect x="40" y="104" width="98" height="26" rx="6" fill="rgba(255,92,46,0.2)" stroke="rgba(255,92,46,0.4)" stroke-width="1"/>
+              <rect x="50" y="112" width="14" height="10" rx="2" fill="rgba(255,92,46,0.7)"/>
+              <rect x="70" y="114" width="55" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
+              <rect x="40" y="138" width="98" height="22" rx="6" fill="transparent"/>
+              <rect x="50" y="145" width="14" height="10" rx="2" fill="rgba(255,255,255,0.2)"/>
+              <rect x="70" y="147" width="45" height="6" rx="3" fill="rgba(255,255,255,0.2)"/>
+              <rect x="40" y="168" width="98" height="22" rx="6" fill="transparent"/>
+              <rect x="50" y="175" width="14" height="10" rx="2" fill="rgba(255,255,255,0.2)"/>
+              <rect x="70" y="177" width="55" height="6" rx="3" fill="rgba(255,255,255,0.2)"/>
+              <rect x="40" y="198" width="98" height="22" rx="6" fill="transparent"/>
+              <rect x="50" y="205" width="14" height="10" rx="2" fill="rgba(255,255,255,0.2)"/>
+              <rect x="70" y="207" width="40" height="6" rx="3" fill="rgba(255,255,255,0.2)"/>
+              <!-- Sidebar divider -->
+              <line x1="40" y1="240" x2="128" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+              <rect x="40" y="250" width="98" height="22" rx="6" fill="transparent"/>
+              <rect x="50" y="257" width="14" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
+              <rect x="70" y="259" width="50" height="6" rx="3" fill="rgba(255,255,255,0.15)"/>
+              <rect x="40" y="278" width="98" height="22" rx="6" fill="transparent"/>
+              <rect x="50" y="285" width="14" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
+              <rect x="70" y="287" width="38" height="6" rx="3" fill="rgba(255,255,255,0.15)"/>
+
+              <!-- MAIN CONTENT AREA -->
+              <!-- Section heading -->
+              <rect x="150" y="102" width="160" height="10" rx="5" fill="rgba(255,255,255,0.35)"/>
+              <rect x="150" y="118" width="250" height="6" rx="3" fill="rgba(255,255,255,0.12)"/>
+
+              <!-- KPI cards row -->
+              <rect x="150" y="136" width="100" height="64" rx="10" fill="url(#pr-card)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <rect x="162" y="148" width="50" height="6" rx="3" fill="rgba(255,255,255,0.25)"/>
+              <text x="200" y="192" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="rgba(255,92,46,0.95)" text-anchor="middle">24</text>
+
+              <rect x="262" y="136" width="100" height="64" rx="10" fill="url(#pr-card)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <rect x="274" y="148" width="60" height="6" rx="3" fill="rgba(255,255,255,0.25)"/>
+              <text x="312" y="192" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="rgba(80,200,120,0.95)" text-anchor="middle">87%</text>
+
+              <rect x="374" y="136" width="100" height="64" rx="10" fill="url(#pr-card)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <rect x="386" y="148" width="55" height="6" rx="3" fill="rgba(255,255,255,0.25)"/>
+              <text x="424" y="192" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="rgba(180,140,255,0.95)" text-anchor="middle">6</text>
+
+              <!-- Affinity map area -->
+              <rect x="150" y="212" width="200" height="120" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+              <rect x="162" y="222" width="90" height="8" rx="4" fill="rgba(255,255,255,0.25)"/>
+              <rect x="162" y="235" width="176" height="1" fill="rgba(255,255,255,0.06)"/>
+              <!-- Sticky note clusters -->
+              <rect x="162" y="244" width="42" height="32" rx="4" fill="rgba(255,200,50,0.25)" stroke="rgba(255,200,50,0.4)" stroke-width="1"/>
+              <rect x="166" y="248" width="32" height="5" rx="2.5" fill="rgba(255,200,50,0.5)"/>
+              <rect x="166" y="256" width="25" height="4" rx="2" fill="rgba(255,200,50,0.3)"/>
+              <rect x="166" y="263" width="28" height="4" rx="2" fill="rgba(255,200,50,0.3)"/>
+
+              <rect x="210" y="244" width="42" height="32" rx="4" fill="rgba(100,160,255,0.2)" stroke="rgba(100,160,255,0.4)" stroke-width="1"/>
+              <rect x="214" y="248" width="32" height="5" rx="2.5" fill="rgba(100,160,255,0.5)"/>
+              <rect x="214" y="256" width="25" height="4" rx="2" fill="rgba(100,160,255,0.3)"/>
+              <rect x="214" y="263" width="28" height="4" rx="2" fill="rgba(100,160,255,0.3)"/>
+
+              <rect x="258" y="244" width="42" height="32" rx="4" fill="rgba(255,100,150,0.2)" stroke="rgba(255,100,150,0.4)" stroke-width="1"/>
+              <rect x="262" y="248" width="32" height="5" rx="2.5" fill="rgba(255,100,150,0.5)"/>
+              <rect x="262" y="256" width="25" height="4" rx="2" fill="rgba(255,100,150,0.3)"/>
+              <rect x="262" y="263" width="28" height="4" rx="2" fill="rgba(255,100,150,0.3)"/>
+
+              <rect x="162" y="284" width="42" height="32" rx="4" fill="rgba(80,220,120,0.2)" stroke="rgba(80,220,120,0.4)" stroke-width="1"/>
+              <rect x="166" y="288" width="32" height="5" rx="2.5" fill="rgba(80,220,120,0.5)"/>
+              <rect x="166" y="296" width="28" height="4" rx="2" fill="rgba(80,220,120,0.3)"/>
+              <rect x="166" y="303" width="22" height="4" rx="2" fill="rgba(80,220,120,0.3)"/>
+
+              <rect x="210" y="284" width="42" height="32" rx="4" fill="rgba(255,160,50,0.2)" stroke="rgba(255,160,50,0.4)" stroke-width="1"/>
+              <rect x="214" y="288" width="32" height="5" rx="2.5" fill="rgba(255,160,50,0.5)"/>
+              <rect x="214" y="296" width="25" height="4" rx="2" fill="rgba(255,160,50,0.3)"/>
+              <rect x="214" y="303" width="28" height="4" rx="2" fill="rgba(255,160,50,0.3)"/>
+
+              <!-- Persona card -->
+              <rect x="362" y="212" width="150" height="120" rx="10" fill="rgba(255,92,46,0.07)" stroke="rgba(255,92,46,0.25)" stroke-width="1"/>
+              <circle cx="400" cy="242" r="18" fill="rgba(255,92,46,0.3)" stroke="rgba(255,92,46,0.5)" stroke-width="1.5"/>
+              <!-- face hint -->
+              <circle cx="395" cy="239" r="2.5" fill="rgba(255,255,255,0.6)"/>
+              <circle cx="405" cy="239" r="2.5" fill="rgba(255,255,255,0.6)"/>
+              <path d="M394 247 Q400 252 406 247" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <rect x="372" y="268" width="80" height="7" rx="3.5" fill="rgba(255,255,255,0.35)"/>
+              <rect x="372" y="281" width="120" height="5" rx="2.5" fill="rgba(255,255,255,0.15)"/>
+              <rect x="372" y="291" width="100" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <!-- Pain point bars -->
+              <rect x="372" y="304" width="50" height="5" rx="2.5" fill="rgba(255,92,46,0.6)"/>
+              <rect x="372" y="313" width="35" height="5" rx="2.5" fill="rgba(255,92,46,0.4)"/>
+              <rect x="372" y="322" width="65" height="5" rx="2.5" fill="rgba(255,92,46,0.3)"/>
+
+              <!-- Accent left strip -->
+              <rect x="30" y="24" width="4" height="312" rx="2" fill="url(#pr-accent)"/>
+            </svg>
+            <div class="split-screen-label">Research Dashboard · Main Screen</div>
+          </div>
+
+        </a>
+
+        <!-- ─── PROJECT 2: Care Center — Airtel ─── -->
+        <a href="https://www.behance.net/gallery/94000041/Care-Center" target="_blank" class="project-card">
+          <div class="project-hero">
+            <img referrerpolicy="no-referrer" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/a1db7f94000041.5e735c837b16c.png"
+              alt="Care Center — Airtel Web Portal"
+              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);pointer-events:none;"></div>
+            <svg viewBox="0 0 1100 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="display:none">
+              <defs>
+                <linearGradient id="g2a" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0f1923"/>
+                  <stop offset="100%" stop-color="#1a2a1a"/>
+                </linearGradient>
+              </defs>
+              <rect width="1100" height="260" fill="url(#g2a)"/>
+              <!-- Web portal mockup -->
+              <rect x="60" y="30" width="520" height="200" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <!-- Browser chrome -->
+              <rect x="60" y="30" width="520" height="30" rx="10" fill="rgba(255,255,255,0.08)"/>
+              <rect x="60" y="50" width="520" height="10" fill="rgba(255,255,255,0.08)"/>
+              <circle cx="80" cy="45" r="5" fill="rgba(255,100,100,0.5)"/>
+              <circle cx="96" cy="45" r="5" fill="rgba(255,200,100,0.5)"/>
+              <circle cx="112" cy="45" r="5" fill="rgba(100,200,100,0.5)"/>
+              <rect x="140" y="37" width="300" height="16" rx="8" fill="rgba(255,255,255,0.08)"/>
+              <!-- Sidebar -->
+              <rect x="60" y="60" width="100" height="170" rx="0" fill="rgba(255,255,255,0.04)"/>
+              <rect x="72" y="75" width="76" height="8" rx="4" fill="rgba(255,255,255,0.15)"/>
+              <rect x="72" y="91" width="60" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+              <rect x="72" y="103" width="68" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+              <rect x="72" y="115" width="52" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+              <rect x="72" y="140" width="76" height="6" rx="3" fill="rgba(255,92,46,0.5)"/>
+              <rect x="72" y="152" width="60" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+              <!-- Main content -->
+              <rect x="175" y="68" width="150" height="10" rx="5" fill="rgba(255,255,255,0.25)"/>
+              <rect x="175" y="86" width="380" height="60" rx="6" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <rect x="185" y="96" width="80" height="7" rx="3.5" fill="rgba(255,255,255,0.2)"/>
+              <rect x="185" y="109" width="150" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <rect x="185" y="120" width="120" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <rect x="175" y="155" width="115" height="55" rx="6" fill="rgba(255,92,46,0.12)" stroke="rgba(255,92,46,0.3)" stroke-width="1"/>
+              <rect x="185" y="165" width="70" height="6" rx="3" fill="rgba(255,92,46,0.6)"/>
+              <rect x="185" y="177" width="95" height="5" rx="2.5" fill="rgba(255,255,255,0.15)"/>
+              <rect x="185" y="188" width="80" height="5" rx="2.5" fill="rgba(255,255,255,0.15)"/>
+              <rect x="300" y="155" width="115" height="55" rx="6" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <rect x="310" y="165" width="70" height="6" rx="3" fill="rgba(255,255,255,0.2)"/>
+              <rect x="310" y="177" width="95" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <!-- Right panel — Airtel red accent -->
+              <rect x="620" y="30" width="420" height="200" rx="10" fill="rgba(200,30,30,0.08)" stroke="rgba(200,30,30,0.2)" stroke-width="1"/>
+              <rect x="640" y="50" width="120" height="10" rx="5" fill="rgba(255,255,255,0.2)"/>
+              <rect x="640" y="68" width="380" height="1" fill="rgba(255,255,255,0.06)"/>
+              <!-- Call metrics -->
+              <rect x="640" y="80" width="85" height="80" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <text x="682" y="118" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="rgba(255,92,46,0.9)" text-anchor="middle">47</text>
+              <rect x="648" y="128" width="60" height="5" rx="2.5" fill="rgba(255,255,255,0.12)"/>
+              <rect x="735" y="80" width="85" height="80" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <text x="777" y="118" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="rgba(100,220,100,0.9)" text-anchor="middle">92%</text>
+              <rect x="743" y="128" width="60" height="5" rx="2.5" fill="rgba(255,255,255,0.12)"/>
+              <rect x="830" y="80" width="85" height="80" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <text x="872" y="118" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="rgba(255,200,50,0.9)" text-anchor="middle">2.4m</text>
+              <rect x="838" y="128" width="60" height="5" rx="2.5" fill="rgba(255,255,255,0.12)"/>
+              <rect x="640" y="170" width="380" height="45" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              <rect x="650" y="180" width="180" height="6" rx="3" fill="rgba(255,255,255,0.15)"/>
+              <rect x="650" y="193" width="120" height="5" rx="2.5" fill="rgba(255,255,255,0.08)"/>
+              <!-- Airtel logo hint -->
+              <circle cx="990" cy="50" r="18" fill="rgba(200,30,30,0.3)" stroke="rgba(200,30,30,0.5)" stroke-width="1"/>
+              <text x="990" y="55" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="rgba(255,255,255,0.7)" text-anchor="middle">AIRTEL</text>
+              <!-- Left accent strip -->
+              <rect x="0" y="0" width="5" height="260" fill="rgba(200,30,30,0.8)"/>
+            </svg>
+            <div class="hero-label">Care Center<br/>Airtel</div>
+            <div class="hero-badge">B2B · Telecom</div>
+            <div class="hero-num">02</div>
+          </div>
+          <div class="project-body">
+            <div>
+              <div class="project-tags">
+                <span class="tag">B2B</span>
+                <span class="tag">Telecom</span>
+              </div>
+              <div class="project-num">02 / Senior Design Analyst</div>
+              <div class="project-title">Care Center — Airtel</div>
+              <p class="project-desc">Redesigned the call center web portal for Airtel's customer service representatives — streamlining workflows and reducing resolution time.</p>
+              <div class="project-meta">
+                <span class="pill">Case Study</span>
+                <span>Enterprise UX · Web Portal</span>
+              </div>
+            </div>
+            <div class="project-arrow">↗</div>
+          </div>
+        </a>
+
+        <!-- ─── PROJECT 3: Doctor Consultation ─── -->
+        <a href="https://www.behance.net/gallery/95430997/Doctor-Consultation" target="_blank" class="project-card">
+          <div class="project-hero">
+            <img referrerpolicy="no-referrer" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ea458295430997.5e973fdaba297.png"
+              alt="Doctor Consultation App Screens"
+              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);pointer-events:none;"></div>
+            <svg viewBox="0 0 1100 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="display:none">
+              <defs>
+                <linearGradient id="g3a" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0d1b2a"/>
+                  <stop offset="100%" stop-color="#162032"/>
+                </linearGradient>
+                <linearGradient id="g3b" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#4A90D9" stop-opacity="0.6"/>
+                  <stop offset="100%" stop-color="#2E67B1" stop-opacity="0.2"/>
+                </linearGradient>
+              </defs>
+              <rect width="1100" height="260" fill="url(#g3a)"/>
+              <!-- Phone frame left -->
+              <rect x="70" y="15" width="150" height="230" rx="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+              <rect x="82" y="28" width="126" height="204" rx="12" fill="rgba(13,27,42,0.9)"/>
+              <!-- Status bar -->
+              <rect x="82" y="28" width="126" height="20" rx="12" fill="rgba(255,255,255,0.06)"/>
+              <!-- App header -->
+              <rect x="82" y="48" width="126" height="35" fill="rgba(74,144,217,0.15)"/>
+              <rect x="92" y="56" width="80" height="8" rx="4" fill="rgba(255,255,255,0.7)"/>
+              <rect x="186" y="54" width="16" height="16" rx="8" fill="rgba(255,92,46,0.6)"/>
+              <!-- Doctor card -->
+              <rect x="90" y="91" width="110" height="70" rx="8" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <circle cx="115" cy="112" r="14" fill="rgba(74,144,217,0.4)"/>
+              <rect x="134" y="104" width="56" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
+              <rect x="134" y="116" width="40" height="5" rx="2.5" fill="rgba(255,255,255,0.2)"/>
+              <rect x="134" y="128" width="28" height="5" rx="2.5" fill="rgba(255,92,46,0.6)"/>
+              <rect x="134" y="139" width="48" height="12" rx="6" fill="rgba(74,144,217,0.5)"/>
+              <text x="158" y="148" font-family="Arial,sans-serif" font-size="6" fill="white" text-anchor="middle">Book</text>
+              <!-- Categories row -->
+              <rect x="90" y="170" width="26" height="26" rx="6" fill="rgba(255,92,46,0.2)" stroke="rgba(255,92,46,0.4)" stroke-width="1"/>
+              <rect x="120" y="170" width="26" height="26" rx="6" fill="rgba(74,144,217,0.15)" stroke="rgba(74,144,217,0.3)" stroke-width="1"/>
+              <rect x="150" y="170" width="26" height="26" rx="6" fill="rgba(100,200,100,0.15)" stroke="rgba(100,200,100,0.3)" stroke-width="1"/>
+              <rect x="180" y="170" width="26" height="26" rx="6" fill="rgba(200,150,255,0.15)" stroke="rgba(200,150,255,0.3)" stroke-width="1"/>
+              <!-- Phone 2 -->
+              <rect x="250" y="25" width="150" height="210" rx="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+              <rect x="262" y="38" width="126" height="184" rx="12" fill="rgba(13,27,42,0.9)"/>
+              <rect x="262" y="38" width="126" height="20" rx="12" fill="rgba(255,255,255,0.06)"/>
+              <!-- Doctor profile page -->
+              <rect x="262" y="58" width="126" height="60" fill="url(#g3b)"/>
+              <circle cx="325" cy="88" r="22" fill="rgba(74,144,217,0.5)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+              <rect x="272" y="122" width="106" height="7" rx="3.5" fill="rgba(255,255,255,0.5)"/>
+              <rect x="285" y="135" width="80" height="5" rx="2.5" fill="rgba(255,255,255,0.2)"/>
+              <!-- Stars -->
+              <text x="310" y="150" font-family="Arial,sans-serif" font-size="10" fill="rgba(255,200,50,0.8)" text-anchor="middle">★★★★★</text>
+              <rect x="272" y="158" width="106" height="28" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <rect x="280" y="165" width="55" height="5" rx="2.5" fill="rgba(255,255,255,0.2)"/>
+              <rect x="280" y="175" width="40" height="5" rx="2.5" fill="rgba(74,144,217,0.5)"/>
+              <rect x="272" y="193" width="106" height="22" rx="11" fill="rgba(74,144,217,0.7)"/>
+              <rect x="295" y="200" width="60" height="8" rx="4" fill="rgba(255,255,255,0.9)"/>
+              <!-- Right: feature highlights -->
+              <rect x="440" y="50" width="580" height="160" rx="16" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+              <rect x="460" y="68" width="130" height="9" rx="4.5" fill="rgba(255,255,255,0.2)"/>
+              <rect x="460" y="85" width="90" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+              <!-- Feature items -->
+              <rect x="460" y="108" width="16" height="16" rx="4" fill="rgba(74,144,217,0.4)"/>
+              <rect x="484" y="111" width="100" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
+              <rect x="484" y="121" width="140" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <rect x="460" y="135" width="16" height="16" rx="4" fill="rgba(255,92,46,0.4)"/>
+              <rect x="484" y="138" width="80" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
+              <rect x="484" y="148" width="120" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <rect x="460" y="162" width="16" height="16" rx="4" fill="rgba(100,220,100,0.4)"/>
+              <rect x="484" y="165" width="90" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
+              <rect x="484" y="175" width="110" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <!-- Pulse heart -->
+              <polyline points="650,130 680,130 695,100 710,160 725,115 740,130 800,130" stroke="rgba(255,100,100,0.6)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Left accent -->
+              <rect x="0" y="0" width="5" height="260" fill="rgba(74,144,217,0.8)"/>
+            </svg>
+            <div class="hero-label">Doctor<br/>Consultation</div>
+            <div class="hero-badge">Healthcare · Mobile</div>
+            <div class="hero-num">03</div>
+          </div>
+          <div class="project-body">
+            <div>
+              <div class="project-tags">
+                <span class="tag">Healthcare</span>
+                <span class="tag">Mobile</span>
+              </div>
+              <div class="project-num">03 / Senior Design Analyst</div>
+              <div class="project-title">Doctor Consultation App</div>
+              <p class="project-desc">A mobile-first healthcare app redesign that simplifies booking doctor consultations, browsing specialists, and managing appointments.</p>
+              <div class="project-meta">
+                <span class="pill">Mobile App</span>
+                <span>Healthcare · iOS Design</span>
+              </div>
+            </div>
+            <div class="project-arrow">↗</div>
+          </div>
+        </a>
+
+        <!-- ─── PROJECT 4: MySub ─── -->
+        <a href="https://www.behance.net/gallery/115846791/Subscription" target="_blank" class="project-card">
+          <div class="project-hero">
+            <img referrerpolicy="no-referrer" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ae68fb115846791.60563ca8be37a.png"
+              alt="MySub Subscription Manager App"
+              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);pointer-events:none;"></div>
+            <svg viewBox="0 0 1100 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="display:none">
+              <defs>
+                <linearGradient id="g4a" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0f0a1e"/>
+                  <stop offset="100%" stop-color="#1a0f2e"/>
+                </linearGradient>
+                <linearGradient id="g4b" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#7B5EA7"/>
+                  <stop offset="100%" stop-color="#4A3580"/>
+                </linearGradient>
+              </defs>
+              <rect width="1100" height="260" fill="url(#g4a)"/>
+              <!-- Floating subscription cards -->
+              <!-- Netflix-style -->
+              <rect x="60" y="45" width="180" height="100" rx="12" fill="rgba(229,9,20,0.15)" stroke="rgba(229,9,20,0.35)" stroke-width="1"/>
+              <rect x="76" y="62" width="80" height="10" rx="5" fill="rgba(229,9,20,0.7)"/>
+              <rect x="76" y="80" width="50" height="7" rx="3.5" fill="rgba(255,255,255,0.15)"/>
+              <rect x="76" y="95" width="120" height="7" rx="3.5" fill="rgba(255,255,255,0.08)"/>
+              <rect x="76" y="118" width="70" height="16" rx="8" fill="rgba(229,9,20,0.5)"/>
+              <text x="111" y="129" font-family="Arial,sans-serif" font-size="7" fill="white" text-anchor="middle">₹649/mo</text>
+              <!-- Spotify-style -->
+              <rect x="260" y="30" width="180" height="100" rx="12" fill="rgba(30,215,96,0.1)" stroke="rgba(30,215,96,0.3)" stroke-width="1"/>
+              <rect x="276" y="47" width="90" height="10" rx="5" fill="rgba(30,215,96,0.6)"/>
+              <rect x="276" y="65" width="55" height="7" rx="3.5" fill="rgba(255,255,255,0.15)"/>
+              <rect x="276" y="80" width="130" height="7" rx="3.5" fill="rgba(255,255,255,0.08)"/>
+              <rect x="276" y="103" width="70" height="16" rx="8" fill="rgba(30,215,96,0.4)"/>
+              <text x="311" y="114" font-family="Arial,sans-serif" font-size="7" fill="white" text-anchor="middle">₹199/mo</text>
+              <!-- Amazon-style -->
+              <rect x="160" y="150" width="180" height="90" rx="12" fill="rgba(255,153,0,0.1)" stroke="rgba(255,153,0,0.3)" stroke-width="1"/>
+              <rect x="176" y="165" width="90" height="10" rx="5" fill="rgba(255,153,0,0.6)"/>
+              <rect x="176" y="183" width="130" height="7" rx="3.5" fill="rgba(255,255,255,0.08)"/>
+              <rect x="176" y="218" width="70" height="16" rx="8" fill="rgba(255,153,0,0.4)"/>
+              <text x="211" y="229" font-family="Arial,sans-serif" font-size="7" fill="white" text-anchor="middle">₹299/mo</text>
+              <!-- Dashboard panel -->
+              <rect x="475" y="20" width="580" height="220" rx="16" fill="rgba(255,255,255,0.04)" stroke="rgba(123,94,167,0.3)" stroke-width="1"/>
+              <rect x="475" y="20" width="580" height="40" rx="16" fill="rgba(123,94,167,0.15)"/>
+              <rect x="475" y="46" width="580" height="14" fill="rgba(123,94,167,0.15)"/>
+              <rect x="492" y="29" width="100" height="8" rx="4" fill="rgba(255,255,255,0.5)"/>
+              <!-- MySub logo hint -->
+              <text x="985" y="38" font-family="Georgia,serif" font-size="11" font-weight="bold" fill="rgba(123,94,167,0.9)" text-anchor="middle">MySub.</text>
+              <!-- Total spend card -->
+              <rect x="492" y="72" width="160" height="80" rx="10" fill="rgba(123,94,167,0.2)" stroke="rgba(123,94,167,0.35)" stroke-width="1"/>
+              <rect x="505" y="85" width="80" height="7" rx="3.5" fill="rgba(255,255,255,0.3)"/>
+              <text x="540" y="130" font-family="Georgia,serif" font-size="24" font-weight="bold" fill="rgba(255,255,255,0.85)" text-anchor="middle">₹2,847</text>
+              <rect x="505" y="138" width="65" height="5" rx="2.5" fill="rgba(255,255,255,0.15)"/>
+              <!-- Active count -->
+              <rect x="664" y="72" width="120" height="80" rx="10" fill="rgba(30,215,96,0.1)" stroke="rgba(30,215,96,0.25)" stroke-width="1"/>
+              <rect x="677" y="85" width="70" height="7" rx="3.5" fill="rgba(255,255,255,0.3)"/>
+              <text x="714" y="130" font-family="Georgia,serif" font-size="28" font-weight="bold" fill="rgba(30,215,96,0.9)" text-anchor="middle">7</text>
+              <rect x="677" y="138" width="55" height="5" rx="2.5" fill="rgba(255,255,255,0.15)"/>
+              <!-- Renewal row -->
+              <rect x="800" y="72" width="240" height="80" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <rect x="812" y="82" width="100" height="7" rx="3.5" fill="rgba(255,255,255,0.2)"/>
+              <rect x="812" y="96" width="210" height="1" fill="rgba(255,255,255,0.06)"/>
+              <rect x="812" y="103" width="130" height="6" rx="3" fill="rgba(255,255,255,0.12)"/>
+              <rect x="812" y="115" width="100" height="6" rx="3" fill="rgba(255,255,255,0.12)"/>
+              <rect x="812" y="127" width="110" height="6" rx="3" fill="rgba(255,255,255,0.12)"/>
+              <rect x="906" y="101" width="46" height="12" rx="6" fill="rgba(229,9,20,0.4)"/>
+              <rect x="906" y="113" width="46" height="12" rx="6" fill="rgba(255,153,0,0.4)"/>
+              <rect x="906" y="125" width="46" height="12" rx="6" fill="rgba(30,215,96,0.4)"/>
+              <!-- Bar chart -->
+              <rect x="492" y="165" width="545" height="65" rx="8" fill="rgba(255,255,255,0.03)"/>
+              <rect x="510" y="195" width="30" height="25" rx="3" fill="rgba(123,94,167,0.5)"/>
+              <rect x="550" y="183" width="30" height="37" rx="3" fill="rgba(123,94,167,0.5)"/>
+              <rect x="590" y="190" width="30" height="30" rx="3" fill="rgba(123,94,167,0.5)"/>
+              <rect x="630" y="178" width="30" height="42" rx="3" fill="rgba(255,92,46,0.6)"/>
+              <rect x="670" y="188" width="30" height="32" rx="3" fill="rgba(123,94,167,0.5)"/>
+              <rect x="710" y="182" width="30" height="38" rx="3" fill="rgba(123,94,167,0.5)"/>
+              <rect x="750" y="192" width="30" height="28" rx="3" fill="rgba(123,94,167,0.5)"/>
+              <!-- Left accent -->
+              <rect x="0" y="0" width="5" height="260" fill="rgba(123,94,167,0.9)"/>
+            </svg>
+            <div class="hero-label">MySub<br/>Dashboard</div>
+            <div class="hero-badge">SaaS · B2C</div>
+            <div class="hero-num">04</div>
+          </div>
+          <div class="project-body">
+            <div>
+              <div class="project-tags">
+                <span class="tag">SaaS</span>
+                <span class="tag">B2C</span>
+              </div>
+              <div class="project-num">04 / Senior Design Analyst</div>
+              <div class="project-title">MySub — Subscription Manager</div>
+              <p class="project-desc">One-stop subscription management app helping users track, manage, and optimise all their subscriptions in a single clean dashboard.</p>
+              <div class="project-meta">
+                <span class="pill">Product Design</span>
+                <span>SaaS · Mobile App</span>
+              </div>
+            </div>
+            <div class="project-arrow">↗</div>
+          </div>
+        </a>
+
+        <!-- ─── PROJECT 5: FastTAG ─── -->
+        <a href="https://www.behance.net/gallery/95115083/FastTAG-Services" target="_blank" class="project-card">
+          <div class="project-hero">
+            <img referrerpolicy="no-referrer" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/22186495115083.5e8f81ed6ec8c.png"
+              alt="FastTAG Services App Design"
+              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 12%;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);pointer-events:none;"></div>
+            <svg viewBox="0 0 1100 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="display:none">
+              <defs>
+                <linearGradient id="g5a" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#061524"/>
+                  <stop offset="100%" stop-color="#0a2236"/>
+                </linearGradient>
+                <linearGradient id="g5b" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#00B4D8" stop-opacity="0.7"/>
+                  <stop offset="100%" stop-color="#0077B6" stop-opacity="0.4"/>
+                </linearGradient>
+              </defs>
+              <rect width="1100" height="260" fill="url(#g5a)"/>
+              <!-- Road perspective lines -->
+              <polygon points="550,260 450,260 350,130 750,130" fill="rgba(255,255,255,0.02)"/>
+              <line x1="550" y1="260" x2="550" y2="130" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="8,8"/>
+              <line x1="500" y1="260" x2="480" y2="130" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="8,8"/>
+              <line x1="600" y1="260" x2="620" y2="130" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="8,8"/>
+              <!-- Toll booth arch -->
+              <rect x="420" y="60" width="260" height="140" rx="4" fill="none" stroke="rgba(0,180,216,0.2)" stroke-width="1"/>
+              <rect x="420" y="60" width="260" height="8" rx="4" fill="rgba(0,180,216,0.3)"/>
+              <rect x="420" y="60" width="8" height="140" fill="rgba(0,180,216,0.3)"/>
+              <rect x="672" y="60" width="8" height="140" fill="rgba(0,180,216,0.3)"/>
+              <!-- Barrier arm -->
+              <rect x="480" y="120" width="8" height="60" rx="4" fill="rgba(255,92,46,0.7)"/>
+              <rect x="480" y="118" width="120" height="6" rx="3" fill="rgba(255,92,46,0.7)"/>
+              <!-- Sensor blink -->
+              <circle cx="540" cy="90" r="12" fill="rgba(0,180,216,0.15)" stroke="rgba(0,180,216,0.5)" stroke-width="1.5"/>
+              <circle cx="540" cy="90" r="6" fill="rgba(0,180,216,0.6)"/>
+              <!-- Tag chip animation dots -->
+              <circle cx="560" cy="90" r="3" fill="rgba(0,180,216,0.8)"/>
+              <circle cx="575" cy="90" r="3" fill="rgba(0,180,216,0.5)"/>
+              <circle cx="590" cy="90" r="3" fill="rgba(0,180,216,0.3)"/>
+              <!-- Left UI panel -->
+              <rect x="40" y="30" width="320" height="200" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(0,180,216,0.2)" stroke-width="1"/>
+              <rect x="40" y="30" width="320" height="38" rx="14" fill="rgba(0,180,216,0.08)"/>
+              <rect x="40" y="54" width="320" height="14" fill="rgba(0,180,216,0.08)"/>
+              <rect x="58" y="41" width="80" height="8" rx="4" fill="rgba(255,255,255,0.4)"/>
+              <!-- Balance card -->
+              <rect x="55" y="80" width="130" height="70" rx="10" fill="rgba(0,180,216,0.12)" stroke="rgba(0,180,216,0.3)" stroke-width="1"/>
+              <rect x="65" y="91" width="65" height="7" rx="3.5" fill="rgba(255,255,255,0.25)"/>
+              <text x="120" y="136" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="rgba(0,180,216,0.95)" text-anchor="middle">₹450</text>
+              <rect x="65" y="140" width="50" height="5" rx="2.5" fill="rgba(255,255,255,0.12)"/>
+              <!-- Recent trips -->
+              <rect x="195" y="80" width="150" height="70" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <rect x="205" y="90" width="80" height="7" rx="3.5" fill="rgba(255,255,255,0.2)"/>
+              <rect x="205" y="104" width="130" height="1" fill="rgba(255,255,255,0.06)"/>
+              <rect x="205" y="110" width="90" height="6" rx="3" fill="rgba(255,255,255,0.12)"/>
+              <rect x="205" y="122" width="70" height="6" rx="3" fill="rgba(255,255,255,0.12)"/>
+              <rect x="205" y="134" width="80" height="6" rx="3" fill="rgba(255,255,255,0.12)"/>
+              <rect x="300" y="108" width="32" height="12" rx="6" fill="rgba(100,220,100,0.4)"/>
+              <rect x="300" y="120" width="32" height="12" rx="6" fill="rgba(255,92,46,0.4)"/>
+              <rect x="300" y="132" width="32" height="12" rx="6" fill="rgba(100,220,100,0.4)"/>
+              <!-- Map hint -->
+              <rect x="55" y="160" width="290" height="60" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              <rect x="65" y="168" width="60" height="6" rx="3" fill="rgba(255,255,255,0.15)"/>
+              <!-- Route line -->
+              <path d="M65,190 Q140,178 215,190 Q280,200 335,182" stroke="rgba(0,180,216,0.5)" stroke-width="2" fill="none" stroke-dasharray="4,4"/>
+              <circle cx="65" cy="190" r="4" fill="rgba(0,180,216,0.8)"/>
+              <circle cx="335" cy="182" r="4" fill="rgba(255,92,46,0.8)"/>
+              <!-- Right info panel -->
+              <rect x="740" y="30" width="320" height="200" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(0,180,216,0.15)" stroke-width="1"/>
+              <rect x="758" y="50" width="120" height="8" rx="4" fill="rgba(255,255,255,0.2)"/>
+              <rect x="758" y="66" width="284" height="1" fill="rgba(255,255,255,0.05)"/>
+              <!-- Feature bullets -->
+              <circle cx="768" cy="82" r="5" fill="rgba(0,180,216,0.5)"/>
+              <rect x="780" y="78" width="120" height="7" rx="3.5" fill="rgba(255,255,255,0.25)"/>
+              <rect x="780" y="89" width="180" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <circle cx="768" cy="107" r="5" fill="rgba(255,92,46,0.5)"/>
+              <rect x="780" y="103" width="100" height="7" rx="3.5" fill="rgba(255,255,255,0.25)"/>
+              <rect x="780" y="114" width="160" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <circle cx="768" cy="132" r="5" fill="rgba(100,220,100,0.5)"/>
+              <rect x="780" y="128" width="110" height="7" rx="3.5" fill="rgba(255,255,255,0.25)"/>
+              <rect x="780" y="139" width="150" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <rect x="758" y="160" width="280" height="55" rx="8" fill="rgba(0,180,216,0.06)" stroke="rgba(0,180,216,0.2)" stroke-width="1"/>
+              <rect x="768" y="170" width="80" height="7" rx="3.5" fill="rgba(0,180,216,0.6)"/>
+              <rect x="768" y="184" width="220" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <rect x="768" y="195" width="180" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+              <!-- Left accent -->
+              <rect x="0" y="0" width="5" height="260" fill="rgba(0,180,216,0.9)"/>
+            </svg>
+            <div class="hero-label">FastTAG<br/>Services</div>
+            <div class="hero-badge">GovTech · Services</div>
+            <div class="hero-num">05</div>
+          </div>
+          <div class="project-body">
+            <div>
+              <div class="project-tags">
+                <span class="tag">GovTech</span>
+                <span class="tag">Services</span>
+              </div>
+              <div class="project-num">05 / Senior Design Analyst</div>
+              <div class="project-title">FastTAG Services</div>
+              <p class="project-desc">Redesigning the FastTAG service experience to make highway toll payments simpler, faster, and more accessible for everyday users.</p>
+              <div class="project-meta">
+                <span class="pill">Service Design</span>
+                <span>GovTech · Web</span>
+              </div>
+            </div>
+            <div class="project-arrow">↗</div>
+          </div>
+        </a>
+
+      </div><!-- /projects-list -->
+    </div>
+  </section>
+
+  <!-- CURRENTLY -->
+  <section id="currently">
+    <div class="container">
+      <div class="section-eyebrow">Currently</div>
+      <h2 class="section-title">Role</h2>
+      <div class="currently-grid">
+        <div class="currently-card">
+          <div class="currently-label">Day Job</div>
+          <div class="currently-title">Senior Design Analyst @ Accenture</div>
+          <div class="currently-sub">New Delhi · Available Full-time / Willing to Relocate</div>
+        </div>
+        <div class="currently-card">
+          <div class="currently-label">Exploring</div>
+          <div class="currently-title">What I'm tinkering with</div>
+          <ul class="exploring-list">
+            <li>AI-driven UX patterns</li>
+            <li>Design systems at scale</li>
+            <li>Motion design &amp; micro-interactions</li>
+            <li>Cross-domain product thinking</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="section-eyebrow">About Me</div>
+          <h2 class="section-title">I design at the<br/><span class="italic">intersection of</span><br/>empathy and craft.</h2>
+          <p class="about-desc">Senior Design Analyst at Accenture, based in New Delhi. I've worked across healthcare, fintech, logistics, telecom, and fashion — bringing user research and visual design together to create experiences people actually enjoy using.</p>
+          <p class="about-desc" style="margin-top:1rem;">I believe great design is never just about aesthetics — it's about solving the right problem, in the right way, for the right person.</p>
+          <div class="about-pills">
+            <span class="about-pill">UI Design</span>
+            <span class="about-pill">UX Research</span>
+            <span class="about-pill">Figma</span>
+            <span class="about-pill">Prototyping</span>
+            <span class="about-pill">Design Systems</span>
+            <span class="about-pill">Mobile Design</span>
+            <span class="about-pill">Web Design</span>
+          </div>
+        </div>
+        <div class="values-list">
+          <div class="value-item">
+            <div class="value-icon">🔬</div>
+            <div>
+              <div class="value-title">Research-first</div>
+              <div class="value-desc">Every design decision is grounded in user insight. I research before I wireframe, always.</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🧩</div>
+            <div>
+              <div class="value-title">Systems thinking</div>
+              <div class="value-desc">I design components, patterns, and logic that scale — not one-off screens that create debt.</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🎯</div>
+            <div>
+              <div class="value-title">Outcome-led</div>
+              <div class="value-desc">Features exist to move the needle. I measure success, not just ship pixels.</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🌐</div>
+            <div>
+              <div class="value-title">Multi-domain versatility</div>
+              <div class="value-desc">From Airtel's call centres to fashion apps and healthcare — I adapt fast and think broadly.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-eyebrow">Kind Words</div>
+      <h2 class="section-title">What people<br/><span class="italic">say about working</span><br/>with me.</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">Aayush has a remarkable ability to break down complex problems and turn them into clean, intuitive designs. His attention to detail and user empathy make him a standout designer.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">RS</div>
+            <div>
+              <div class="author-name">Colleague at Accenture</div>
+              <div class="author-role">LinkedIn Recommendation</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">Working with Aayush was a great experience — he brings energy, creativity, and a sharp design instinct to every project. Always willing to iterate and improve.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">PM</div>
+            <div>
+              <div class="author-name">Project Manager</div>
+              <div class="author-role">Peer Feedback</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">Aayush's cross-domain expertise is rare — he seamlessly transitions from healthcare UX to fintech dashboards without missing a beat. A true design generalist.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SA</div>
+            <div>
+              <div class="author-name">Senior Analyst</div>
+              <div class="author-role">Design Team Lead</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-eyebrow">Let's Build</div>
+      <h2 class="contact-title">Have a design<br/><span style="font-style:italic">challenge?</span></h2>
+      <p class="contact-desc">I specialise in user-centred design across complex domains. If you're building something that needs to work for real people — let's talk.</p>
+      <div class="contact-ctas">
+        <a href="mailto:agarwalaayush10@gmail.com" class="btn-hero-primary">Start a Conversation →</a>
+        <a href="https://www.behance.net/aayushagarwal4" target="_blank" class="btn-hero-secondary">See My Work ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#home" class="footer-logo">AA<span>.</span></a>
+    <span class="footer-copy">© 2026 Aayush Agarwal. New Delhi, India.</span>
+    <div class="footer-links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="https://www.behance.net/aayushagarwal4" target="_blank">Behance ↗</a>
+      <a href="mailto:agarwalaayush10@gmail.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      const isDark = document.documentElement.dataset.theme === 'dark';
+      document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+      toggle.textContent = isDark ? '☀️' : '🌙';
+    });
+
+    // Active nav on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { threshold: 0.35 }).observe ? sections.forEach(s => new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+      });
+    }, { threshold: 0.35 }).observe(s)) : null;
+
+    // Scroll reveal
+    const cards = document.querySelectorAll('.project-card, .stat-card, .testimonial-card, .currently-card');
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+      });
+    }, { threshold: 0.1 });
+    cards.forEach(c => {
+      c.style.opacity = '0';
+      c.style.transform = 'translateY(24px)';
+      c.style.transition = 'opacity 0.55s ease, transform 0.55s ease, box-shadow 0.3s, border-color 0.3s';
+      ro.observe(c);
+    });
+  </script>
+</body>
+</html>
